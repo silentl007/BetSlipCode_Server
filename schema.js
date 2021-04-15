@@ -13,4 +13,4 @@ const Bet = mongoose.Schema({
     bet9ja = [],
 });
 
-module.exports.BetSchema = mongoose.model('betslipcode', bet);
+module.exports.BetSchema = mongoose.model('SlipCodeDB', bet);
