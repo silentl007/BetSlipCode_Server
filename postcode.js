@@ -15,7 +15,7 @@ router.post('/code', async (req, res) => {
     try {
         const find = await mongo.SlipCode.find({ date: dateFormat(now, "dddd, mmmm dS, yyyy") });
         if (find != null) {
-            AddBet(bet)
+            AddBet(bet, res)
         }
         else {
             const Entry = new mongo.SlipCode({});
@@ -28,7 +28,8 @@ router.post('/code', async (req, res) => {
                 }
                 else {
                     console.log('------------ adding ------------')
-                    AddBet(bet)
+                    res.status(200)
+                    // AddBet(bet)
                 }
             })
         }
@@ -38,7 +39,7 @@ router.post('/code', async (req, res) => {
         console.log('-------------- error at create --------------')
     }
 })
-async function AddBet(data) {
+async function AddBet(data, res) {
     if (data.betCompany == 'nairabet') {
         const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { nairabet: data } });
         res.status(200);
