@@ -17,6 +17,7 @@ router.post('/code', async (req, res) => {
         const find = await mongo.SlipCode.find({ date: dateFormat(now, "dddd, mmmm dS, yyyy") });
         console.log('------------ at find ------------')
         if (find != null) {
+            console.log('------------ at find !=null ------------')
             AddBet(bet, res)
         }
         else {
