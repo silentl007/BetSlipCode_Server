@@ -5,6 +5,7 @@ var now = new Date()
 const router = express.Router();
 
 router.post('/code', async (req, res) => {
+    console.log('-------------- at post route --------------')
     var bet = {
         betCompany: req.body.betCompany,
         submitter: 'test agent',
@@ -14,22 +15,23 @@ router.post('/code', async (req, res) => {
     };
     try {
         const find = await mongo.SlipCode.find({ date: dateFormat(now, "dddd, mmmm dS, yyyy") });
+        console.log('------------ at find ------------')
         if (find != null) {
             AddBet(bet, res)
         }
         else {
+            console.log('------------ at creating new ------------')
             const Entry = new mongo.SlipCode({});
-            Entry.save(async (err) => {
+            Entry.save((err) => {
                 if (err) {
                     console.log('-------------- error --------------')
                     console.log(err)
                     console.log('-------------- error --------------')
-                    res.statusCode(400)
+                    res.status(400)
                 }
                 else {
-                    console.log('------------ adding ------------')
-                    res.status(200)
-                    // AddBet(bet)
+                    console.log('------------ finished creating new ------------')
+                    AddBet(bet, res)
                 }
             })
         }
@@ -40,6 +42,7 @@ router.post('/code', async (req, res) => {
     }
 })
 async function AddBet(data, res) {
+    console.log('-------------- at adding bet --------------')
     if (data.betCompany == 'nairabet') {
         const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { nairabet: data } });
         res.status(200);
