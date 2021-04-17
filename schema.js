@@ -7,19 +7,19 @@ const Bet = mongoose.Schema({
         type: String,
         default: dateFormat(now, "dddd, mmmm dS, yyyy"),
     },
-    nairabet = {
+    nairabet : {
         type: Array,
         default: [],
     },
-    onexbet = {
+    onexbet : {
         type: Array,
         default: [],
     },
-    sportybet = {
+    sportybet : {
         type: Array,
         default: [],
     },
-    bet9ja = {
+    bet9ja : {
         type: Array,
         default: [],
     },
