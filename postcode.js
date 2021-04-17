@@ -4,7 +4,7 @@ const dateFormat = require('dateformat');
 var now = new Date()
 const router = express.Router();
 
-router.post('/postcode', async (req, res) => {
+router.post('/code', async (req, res) => {
     var betCompany = req.body.betCompany;
     var bet = {
         submitter: 'test agent',

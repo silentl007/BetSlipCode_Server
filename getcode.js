@@ -4,7 +4,7 @@ const dateFormat = require('dateformat');
 var now = new Date();
 const router = express.Router();
 
-router.get('/getcode', async (req, res) => {
+router.get('/code', async (req, res) => {
     try {
         const data = await mongo.SlipCode.find({ date: dateFormat(now, "dddd, mmmm dS, yyyy") });
         if (data != null) {

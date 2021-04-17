@@ -9,8 +9,8 @@ const postcode = require('./postcode.js')
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/getcode', getcode);
-app.use('/postcode', postcode);
+app.use('/get', getcode);
+app.use('/post', postcode);
 
 mongo.connect(process.env.MongoString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, (error) => {
     if (error) {
