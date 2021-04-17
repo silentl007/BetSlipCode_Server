@@ -25,4 +25,4 @@ const Bet = mongoose.Schema({
     },
 });
 
-module.exports.SlipCode = mongoose.model('SlipCodeDB', bet);
+module.exports.SlipCode = mongoose.model('SlipCodeDB', Bet);
