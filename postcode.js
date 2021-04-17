@@ -33,7 +33,7 @@ router.post('/postcode', async (req, res) => {
         }
         else {
             const Entry = new mongo.SlipCode({});
-            Entry.save((err) => {
+            Entry.save(async (err) => {
                 if (err) {
                     console.log('-------------- error --------------')
                     console.log(err)
