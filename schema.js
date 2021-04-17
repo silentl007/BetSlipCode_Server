@@ -4,13 +4,25 @@ var now = new Date()
 
 const Bet = mongoose.Schema({
     date: {
-        type: Date,
-        default: Date.now,
+        type: String,
+        default: dateFormat(now, "dddd, mmmm dS, yyyy"),
     },
-    nairabet = [],
-    x1bet = [],
-    sportybet = [],
-    bet9ja = [],
+    nairabet = {
+        type: Array,
+        default: [],
+    },
+    onexbet = {
+        type: Array,
+        default: [],
+    },
+    sportybet = {
+        type: Array,
+        default: [],
+    },
+    bet9ja = {
+        type: Array,
+        default: [],
+    },
 });
 
-module.exports.BetSchema = mongoose.model('SlipCodeDB', bet);
+module.exports.SlipCode = mongoose.model('SlipCodeDB', bet);
