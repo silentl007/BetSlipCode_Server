@@ -15,15 +15,10 @@ router.post('/code', async (req, res) => {
     };
     try {
         const find = await mongo.SlipCode.findOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") });
-        console.log(dateFormat(now, "dddd, mmmm dS, yyyy"))
-        console.log('------------ at find ------------')
         if (find != null) {
-            console.log('------------ at find !=null ------------')
-            console.log(find)
-            AddBet(bet, res, find)
+            AddBet(bet, res)
         }
         else {
-            console.log('------------ at creating new ------------')
             const Entry = new mongo.SlipCode({});
             Entry.save((err) => {
                 if (err) {
@@ -33,7 +28,6 @@ router.post('/code', async (req, res) => {
                     res.status(400).json({ message: "Error adding new Entry" });
                 }
                 else {
-                    console.log('------------ finished creating new ------------')
                     AddBet(bet, res)
                 }
             })
@@ -44,29 +38,48 @@ router.post('/code', async (req, res) => {
         console.log('-------------- error at create --------------')
     }
 })
-async function AddBet(data, res, result) {
-    console.log('-------------- at adding bet --------------')
+async function AddBet(data, res) {
     var checker = [];
-    if (data.betCompany == 'nairabet') {
-        const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { nairabet: data } });
-        return res.status(200).json({ message: "Added!" });
-    } else if (data.betCompany == 'onexbet') {
-        result.onexbet.forEach((items) => checker.push(items.slipcode))
+    const result = await mongo.SlipCode.findOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") });
+    if (data.betCompany == 'NairaBet') {
+        result.NairaBet.forEach((items) => checker.push(items.slipcode))
         if (checker.includes(data.slipcode)) {
             return res.status(500).json({ message: "Already added bet code!" });
         }
         else {
-            const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { onexbet: data } });
+            const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { NairaBet: data } });
+            return res.status(200).json({ message: "Added!" });
+        }
+    } else if (data.betCompany == 'OnexBet') {
+        result.OnexBet.forEach((items) => checker.push(items.slipcode))
+        if (checker.includes(data.slipcode)) {
+            return res.status(500).json({ message: "Already added bet code!" });
+        }
+        else {
+            const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { OnexBet: data } });
             return res.status(200).json({ message: "Added!" });
         }
     }
-    else if (data.betCompany == 'sportybet') {
-        const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { sportybet: data } });
-        return res.status(200).json({ message: "Added!" });
+    else if (data.betCompany == 'SportyBet') {
+        result.SportyBet.forEach((items) => checker.push(items.slipcode))
+        if (checker.includes(data.slipcode)) {
+            return res.status(500).json({ message: "Already added bet code!" });
+        }
+        else {
+            const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { SportyBet: data } });
+            return res.status(200).json({ message: "Added!" });
+        }
     }
-    else if (data.betCompany == 'bet9ja') {
-        const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { bet9ja: data } });
-        return res.status(200).json({ message: "Added!" });
+    else if (data.betCompany == 'Bet9ja') {
+        result.Bet9ja.forEach((items) => checker.push(items.slipcode))
+        if (checker.includes(data.slipcode)) {
+            return res.status(500).json({ message: "Already added bet code!" });
+        }
+        else {
+            const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { Bet9ja: data } });
+            return res.status(200).json({ message: "Added!" });
+        }
+
     }
 }
 module.exports = router
