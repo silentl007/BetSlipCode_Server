@@ -7,22 +7,29 @@ const Bet = mongoose.Schema({
         type: String,
         default: dateFormat(now, "dddd, mmmm dS, yyyy"),
     },
-    NairaBet : {
+    NairaBet: {
         type: Array,
         default: [],
     },
-    OnexBet : {
+    OnexBet: {
         type: Array,
         default: [],
     },
-    SportyBet : {
+    SportyBet: {
         type: Array,
         default: [],
     },
-    Bet9ja : {
+    Bet9ja: {
         type: Array,
         default: [],
     },
 });
 
+const BetComp = mongoose.Schema({
+    company: {
+        type: Array,
+    }
+});
+
 module.exports.SlipCode = mongoose.model('SlipCodeDB', Bet);
+module.exports.betCompany = mongoose.model('betcompanies', BetComp);
