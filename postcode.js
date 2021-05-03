@@ -11,7 +11,9 @@ router.post('/code', async (req, res) => {
         submitter: 'test agent',
         type: req.body.type,
         slipcode: req.body.slipcode,
-        odds: req.body.odds
+        odds: req.body.odds,
+        sport: req.body.sport,
+        start: req.body.start,
     };
     try {
         const find = await mongo.SlipCode.findOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") });
