@@ -82,6 +82,16 @@ async function AddBet(data, res) {
             return res.status(200).json({ message: "Added!" });
         }
 
+    } else if (data.betCompany == 'MerryBet') {
+        result.MerryBet.forEach((items) => checker.push(items.slipcode))
+        if (checker.includes(data.slipcode)) {
+            return res.status(500).json({ message: "Already added bet code!" });
+        }
+        else {
+            const add = await mongo.SlipCode.updateOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") }, { $push: { MerryBet: data } });
+            return res.status(200).json({ message: "Added!" });
+        }
+
     }
 }
 module.exports = router
