@@ -23,6 +23,10 @@ const Bet = mongoose.Schema({
         type: Array,
         default: [],
     },
+    MerryBet: {
+        type: Array,
+        default: [],
+    },
 });
 
 const BetComp = mongoose.Schema({
