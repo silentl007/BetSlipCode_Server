@@ -4,6 +4,13 @@ const dateFormat = require('dateformat');
 var now = new Date()
 const router = express.Router();
 
+/**
+ * Once you have added a new bet company in the schema proceed to the AddBet function
+ * include the else if of the new company, remember to use the name used in the schema
+ * proceed to mongoDB and manually add the new bet company so that get requests will pick it up
+ * same goes for adding new sports, that is manually edited in the database
+ */
+
 router.post('/code', async (req, res) => {
     console.log('-------------- at post route --------------')
     var bet = {
@@ -14,6 +21,7 @@ router.post('/code', async (req, res) => {
         odds: req.body.odds,
         sport: req.body.sport,
         start: req.body.start,
+        startdate : req.body.startdate
     };
     try {
         const find = await mongo.SlipCode.findOne({ date: dateFormat(now, "dddd, mmmm dS, yyyy") });

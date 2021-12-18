@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const dateFormat = require('dateformat');
 var now = new Date()
 
+/**  
+ * The schema that is inserted into the slipcodedbs on Mongo
+ * if a new bet company is to be added, add its constructor here then proceed to postcode.js*/
 const Bet = mongoose.Schema({
     date: {
         type: String,
